@@ -4,7 +4,7 @@ package listnode;
  * 链表实体类
  *
  * @author huangxiaodong
- * @date 2021/2/4  10:14
+ * @date 2021/2/4  15:28
  */
 public class ListNode {
     int val;

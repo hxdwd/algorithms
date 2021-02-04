@@ -10,6 +10,9 @@ import org.junit.Test;
  */
 public class MergeTwoListsTest {
 
+    /**
+     * 合并两个有序链表
+     */
     @Test
     public void mergeTwoLists() {
         ListNode l1 = new ListNode(1);
@@ -26,6 +29,21 @@ public class MergeTwoListsTest {
         l5.next = l6;
 
         printListNode(MergeTwoLists.mergeTwoLists(l1,l4));
+    }
+
+    /**
+     * test for {@link DeleteDuplicates}
+     */
+    @Test
+    public void deleteDuplicates() {
+        // [1,1,2,3,3]
+        ListNode l1 = new ListNode(1);
+        l1.next = new ListNode(1);
+        l1.next.next = new ListNode(2);
+        l1.next.next.next = new ListNode(3);
+        l1.next.next.next.next = new ListNode(3);
+
+        printListNode(DeleteDuplicates.deleteDuplicates(l1));
     }
 
     public void printListNode(ListNode node) {
