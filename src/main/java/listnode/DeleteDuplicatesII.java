@@ -61,16 +61,49 @@ public class DeleteDuplicatesII {
         if (null == head.next) {
             return head;
         }
-        ListNode pre = new ListNode(0);
-        ListNode node = pre;
+
+        ListNode note = new ListNode();
+        ListNode preHead = note;
         while (null != head.next) {
-            if (head.val != head.next.val) {
-                pre.next = head;
-                pre = head;
+            if (head.val == head.next.val) {
+                head = head.next.next;
+                note.next = head;
+            } else {
+                note.next = head;
+                note = head;
+                head = head.next;
+
             }
-            head = head.next;
+
         }
-        return node.next;
+        return preHead.next;
+    }
+
+    /**
+     * 别人的写法 太妙了，还是得用两个指针来跑
+     *
+     * @param head
+     * @return
+     */
+    public static ListNode deleteDuplicates2V3(ListNode head) {
+        ListNode preHead = new ListNode(0), fast = head, slow = preHead;
+        slow.next = fast;
+        while (null != fast) {
+            // 跳过重复的值
+            while (null != fast.next && fast.val == fast.next.val) {
+                fast = fast.next;
+            }
+            if (slow.next != fast) {
+                // 核心东西，之前一直没突破的
+                // 其实之前也快写出来了，需要一个头节点，然后快慢指针
+                slow.next = fast.next;
+                fast = slow.next;
+            } else {
+                slow = slow.next;
+                fast = fast.next;
+            }
+        }
+        return preHead.next;
     }
 
 }

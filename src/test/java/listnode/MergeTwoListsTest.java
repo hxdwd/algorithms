@@ -52,19 +52,21 @@ public class MergeTwoListsTest {
     @Test
     public void deleteDuplicates2() {
         // [1,1,2,3,3]
-        ListNode l1 = new ListNode(2);
+        ListNode l1 = new ListNode(1);
         l1.next = new ListNode(2);
-        l1.next.next = new ListNode(2);
+        l1.next.next = new ListNode(3);
         l1.next.next.next = new ListNode(3);
-        l1.next.next.next.next = new ListNode(4);
-//        l1.next.next.next.next.next = new ListNode(4);
+//        l1.next.next.next.next = new ListNode(4);
+//        l1.next.next.next.next.next = new ListNode(5);
 //        l1.next.next.next.next.next.next = new ListNode(5);
 
 
         // [1,1,1,2,3] 测试用例不通过
 //        printListNode(DeleteDuplicatesII.deleteDuplicates2(l1));
 
-        printListNode(DeleteDuplicatesII.deleteDuplicates2V2(l1));
+//        printListNode(DeleteDuplicatesII.deleteDuplicates2V2(l1));
+
+        printListNode(DeleteDuplicatesII.deleteDuplicates2V3(l1));
     }
 
     public void printListNode(ListNode node) {
