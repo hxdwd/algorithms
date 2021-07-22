@@ -32,8 +32,9 @@ public class DeleteDuplicates {
 
     /**
      * 别人的方法，比较不同
-     * @param head
-     * @return
+     *
+     * @param head /
+     * @return /
      */
     public static ListNode deleteDuplicatesOthers(ListNode head) {
         if (head == null) {
