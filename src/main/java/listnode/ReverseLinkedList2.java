@@ -1,7 +1,5 @@
 package listnode;
 
-import com.sun.org.apache.xpath.internal.WhitespaceStrippingElementMatcher;
-
 /**
  * 反转链表 2
  *

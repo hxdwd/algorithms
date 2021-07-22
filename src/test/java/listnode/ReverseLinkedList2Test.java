@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 public class ReverseLinkedList2Test {
 
     @Test
-    public void reverseBetween() {
+    public void reverseLinkedList() {
         ListNode l1 = new ListNode(1);
         l1.next = new ListNode(2);
         l1.next.next = new ListNode(3);
