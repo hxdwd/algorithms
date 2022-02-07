@@ -4,7 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import sun.security.util.Length;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.zip.CheckedOutputStream;
 
@@ -33,6 +35,12 @@ class DoublePointTest {
         log.info("{}", checkInclusion2("ebiaobooo", "ab"));
         log.info("{}", checkInclusion2("abcdxabcde", "abcdeabcdx"));
     }
+
+    @Test
+    void testNo438() {
+        log.info("{}", findAnagrams("cbaebabacd", "abc"));
+    }
+
 
     /**
      * 76
@@ -217,5 +225,48 @@ class DoublePointTest {
 
         }
         return false;
+    }
+
+    public List<Integer> findAnagrams(String s, String p) {
+        Map<Character, Integer> need = new HashMap<>();
+        Map<Character, Integer> window = new HashMap<>();
+        for (char c : p.toCharArray()) {
+            need.put(c, need.getOrDefault(c, 0) + 1);
+        }
+
+        int left = 0, right = 0;
+        int count = 0;
+        List<Integer> res = new ArrayList<>();
+
+        while (right < s.length()) {
+            char cur = s.charAt(right);
+            right++;
+
+            if (need.containsKey(cur)) {
+                window.put(cur, window.getOrDefault(cur, 0) + 1);
+                if (window.get(cur).equals(need.get(cur))) {
+                    count++;
+                }
+            }
+
+            // 满足情况时左移窗口
+            while (right - left >= p.length()) {
+                if (count == need.size()) {
+                    res.add(left);
+                }
+
+                char move = s.charAt(left);
+                left++;
+
+                if (need.containsKey(move)) {
+                    if (window.get(move).equals(need.get(move))) {
+                        count--;
+                    }
+                    window.put(move, window.get(move) - 1);
+                }
+
+            }
+        }
+        return res;
     }
 }
