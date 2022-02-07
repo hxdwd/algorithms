@@ -1,10 +1,7 @@
 package tree;
 
-import com.sun.xml.internal.messaging.saaj.soap.ver1_2.BodyElement1_2Impl;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import tree.base.TreeNode;
-
-import static org.junit.Assert.*;
 
 public class FindBottomLeftTreeValueTest {
 

@@ -47,7 +47,7 @@ public class No39 {
     }
 
     /**
-     * 迭代的方法
+     * 递归的方法
      */
     public List<List<Integer>> combinationSumV2(int[] candidates, int target) {
         List<List<Integer>> res = new ArrayList<>();

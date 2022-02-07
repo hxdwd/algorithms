@@ -1,8 +1,7 @@
 package listnode;
 
-import org.junit.Test;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
 
 /**
  * 测试用例

@@ -1,10 +1,7 @@
 package other;
 
 import backtrack.No39;
-import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.junit.jupiter.api.Test;
 
 public class No39Test {
 
