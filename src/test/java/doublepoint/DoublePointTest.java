@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import sun.security.util.Length;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +40,7 @@ class DoublePointTest {
     @Test
     void testNo438() {
         log.info("{}", findAnagrams("cbaebabacd", "abc"));
+        log.info("{}", findAnagrams2("cbcebabacd", "abc"));
     }
 
 
@@ -269,4 +271,97 @@ class DoublePointTest {
         }
         return res;
     }
+
+    /**
+     * 别人的写法
+     */
+    public List<Integer> findAnagrams2(String s, String p) {
+        List<Integer> list = new ArrayList<>();
+        if (s == null || s.length() == 0 || p == null || p.length() == 0) return list;
+
+        // 这里可以通过char-'a' 减小数组的长度
+        int[] hash = new int[256]; //character hash
+
+        //record each character in p to hash
+        for (char c : p.toCharArray()) {
+            hash[c - 'a']++;
+        }
+        //two points, initialize count to p's length
+        int left = 0, right = 0, count = p.length();
+
+        while (right < s.length()) {
+            //move right every time, if the character exists in p's hash, decrease the count
+            //current hash value >= 1 means the character is existing in p
+            if (hash[s.charAt(right)] >= 1) {
+                count--;
+            }
+            hash[s.charAt(right)]--;
+            right++;
+
+            //when the count is down to 0, means we found the right anagram
+            //then add window's left to result list
+            if (count == 0) {
+                list.add(left);
+            }
+            //if we find the window's size equals to p, then we have to move left (narrow the window) to find the new match window
+            //++ to reset the hash because we kicked out the left
+            //only increase the count if the character is in p
+            //the count >= 0 indicate it was original in the hash, cuz it won't go below 0
+            if (right - left == p.length()) {
+                if (hash[s.charAt(left)] >= 0) {
+                    count++;
+                }
+                hash[s.charAt(left)]++;
+                left++;
+            }
+        }
+        return list;
+    }
+
+    /**
+     * No.3
+     * 不重复子串的最大长度
+     */
+    public int lengthOfLongestSubstring(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        int left = 0, right = 0;
+        int count = 0;
+
+        while (right < s.length()) {
+            char cur = s.charAt(right);
+            right++;
+            map.put(cur, map.getOrDefault(cur, 0) + 1);
+
+            while (map.get(cur) > 1) {
+                char move = s.charAt(left);
+                left++;
+                map.put(move, map.get(move) - 1);
+            }
+            count = Math.max(count, right - left);
+        }
+        return count;
+    }
+
+    /**
+     * 另一种写法
+     */
+    public int lengthOfLongestSubstring2(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        int left = 0, right = 0;
+        int count = 0;
+        while (right < s.length()) {
+            char cur = s.charAt(right);
+            right++;
+
+            if (map.containsKey(cur)) {
+                left = Math.max(left, map.get(cur) + 1);
+            }
+
+            // 这里是将索引作为value
+            map.put(s.charAt(right), right);
+            count = Math.max(count, right - left + 1);
+        }
+        return count;
+    }
+
 }
