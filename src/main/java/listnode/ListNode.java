@@ -21,5 +21,13 @@ public class ListNode {
         this.val = val;
         this.next = next;
     }
-    
+
+    public static void printListNode(ListNode node) {
+        System.out.print("[ ");
+        while (null != node) {
+            System.out.print(node.val + " ");
+            node = node.next;
+        }
+        System.out.println("]");
+    }
 }

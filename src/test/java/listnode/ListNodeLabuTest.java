@@ -15,18 +15,94 @@ import java.util.Queue;
  * @date 2022/2/8  15:12
  */
 @Slf4j
-public class ListNodeLabuTest {
+class ListNodeLabuTest {
 
     @Test
     void testPriorityQueue() {
         Queue<Integer> queue = new PriorityQueue<>(12, Comparator.comparingInt(a -> a));
-
         queue.add(13);
         queue.add(3);
         queue.add(2);
 
         log.info("弹出最小值：{}", queue.poll());
 
+    }
+
+    @Test
+    void testNo876() {
+        // [1,1,2,3,3]
+        ListNode l1 = new ListNode(1);
+        l1.next = new ListNode(2);
+        l1.next.next = new ListNode(3);
+        l1.next.next.next = new ListNode(4);
+        l1.next.next.next.next = new ListNode(5);
+
+        ListNode.printListNode(middleNode(l1));
+    }
+
+
+    @Test
+    void testNo160() {
+
+    }
+
+
+    /**
+     * No.876 找到链表的中点
+     * Input: head = [1,2,3,4,5]
+     * Output: [3,4,5]
+     */
+    public ListNode middleNode(ListNode head) {
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+
+    /**
+     * No.160 找到两个链表的相交node
+     * <p>
+     * note:太牛逼了 想不到啊
+     */
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode p1 = headA, p2 = headB;
+        while (p1 != p2) {
+            if (p1.next == null) {
+                p1 = headB;
+            } else {
+                p1 = p1.next;
+            }
+            if (p2.next == null) {
+                p2 = headA;
+            } else {
+                p2 = p2.next;
+            }
+        }
+        return p1;
+    }
+
+    /**
+     * 上面代码提交会超时，注意比较不同
+     * 原因是如果两个链表不相交就一直会死循环
+     */
+    public ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
+        ListNode p1 = headA, p2 = headB;
+        while (p1 != p2) {
+            if (p1 == null) {
+                p1 = headB;
+            } else {
+                p1 = p1.next;
+            }
+            if (p2 == null) {
+                p2 = headA;
+            } else {
+                p2 = p2.next;
+            }
+        }
+        return p1;
     }
 
     /**
