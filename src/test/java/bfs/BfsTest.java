@@ -119,6 +119,47 @@ public class BfsTest {
         }
     }
 
+    /**
+     * 优化版 双向bfs
+     */
+    public int openLock2(String[] deadends, String target) {
+        // dead end
+        Set<String> deads = new HashSet<>(Arrays.asList(deadends));
+        // code has been visited
+        Set<String> visited = new HashSet<>();
+        Set<String> q1 = new HashSet<>();
+        Set<String> q2 = new HashSet<>();
+        int count = 0;
+
+        q1.add("0000");
+        q2.add(target);
+
+        while (!q1.isEmpty() && !q2.isEmpty()) {
+            Set<String> temp = new HashSet<>();
+            for (String cur : q1) {
+                if (deads.contains(cur)) {
+                    continue;
+                }
+                if (q2.contains(cur)) {
+                    return count;
+                }
+                visited.add(cur);
+                for (int j = 0; j < 4; j++) {
+                    String up = plusOne(cur, j);
+                    if (!visited.contains(up))
+                        temp.add(up);
+                    String down = minusOne(cur, j);
+                    if (!visited.contains(down))
+                        temp.add(down);
+                }
+            }
+            count++;
+            q1=q2;
+            q2 = temp;
+        }
+        return -1;
+    }
+
     // 将 s[j] 向上拨动⼀次
     String plusOne(String s, int j) {
         char[] ch = s.toCharArray();
